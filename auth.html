@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DressChooseAI — Connexion</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo" class="logo">
+    <p>Ton Dressing Automatisé !</p>
+  </header>
+
+  <div class="auth-wrap">
+    <div class="form">
+      <div class="title">Bienvenue,<br><span>connecte-toi pour continuer</span></div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-connexion">Connexion</button>
+        <button class="auth-tab" id="tab-inscription">Inscription</button>
+      </div>
+
+      <!-- Champs connexion -->
+      <div class="auth-fields active" id="fields-connexion">
+        <input class="input" id="login-email" placeholder="Email" type="email">
+        <input class="input" id="login-password" placeholder="Mot de passe" type="password">
+        <button class="button-confirm" id="btn-connexion">Se connecter →</button>
+      </div>
+
+      <!-- Champs inscription -->
+      <div class="auth-fields" id="fields-inscription">
+        <input class="input" id="signup-email" placeholder="Email" type="email">
+        <input class="input" id="signup-password" placeholder="Mot de passe" type="password">
+        <input class="input" id="signup-password-confirm" placeholder="Confirme le mot de passe" type="password">
+        <button class="button-confirm" id="btn-inscription">Créer mon compte →</button>
+      </div>
+
+      <p class="msg" id="auth-msg"></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

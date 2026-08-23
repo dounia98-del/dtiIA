@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DressChooseAI — Mon Dressing</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <!-- Popup bienvenue -->
+<div id="welcome-overlay" style="display:none;">
+  <div id="welcome-popup">
+    <div id="welcome-emoji">👗</div>
+    <h2>Bienvenue sur ton dressing !</h2>
+    <p class="welcome-intro">DressChooseAI est ton assistante mode personnelle. Voilà comment en profiter au max :</p>
+    
+    <div class="welcome-steps">
+      <div class="welcome-step">
+        <span class="step-icon">👚</span>
+        <div>
+          <strong>Ajoute tous tes vêtements</strong>
+          <p>Photos, couleurs, catégories — plus ton dressing est complet, meilleures seront les suggestions !</p>
+        </div>
+      </div>
+      <div class="welcome-step">
+        <span class="step-icon">🌤️</span>
+        <div>
+          <strong>Météo du lendemain</strong>
+          <p>L'appli récupère automatiquement la météo pour te proposer des tenues adaptées.</p>
+        </div>
+      </div>
+      <div class="welcome-step">
+        <span class="step-icon">✨</span>
+        <div>
+          <strong>Une IA rien que pour toi</strong>
+          <p>Dis lui ton style, tes associations de couleurs préférées, une occasion particulière... elle s'adapte à toi !</p>
+        </div>
+      </div>
+    </div>
+
+    <button id="welcome-btn">C'est parti ! 🚀</button>
+  </div>
+</div>
+  <body>
+
+    <header>
+      <img src="logo.png" alt="Logo DressChooseAI" class="logo">
+      <p>Ton Dressing Automatisé !</p>
+    </header>
+
+    <main>
+      <aside class="formulaire">
+        <h2>Ajouter un vêtement</h2>
+        <div class="champ">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" placeholder="Ex : Jean baggy noir">
+        </div>
+        <div class="champ">
+          <label for="categorie">Catégorie</label>
+          <select id="categorie">
+            <option value="">-- Choisir --</option>
+            <option value="haut">Haut</option>
+            <option value="bas">Bas</option>
+            <option value="robe">Robe</option>
+            <option value="veste">Veste</option>
+            <option value="chaussures">Chaussures</option>
+            <option value="chaussettes">Chaussettes</option>
+            <option value="accessoire">Accessoire</option>
+          </select>
+        </div>
+        <div class="champ">
+          <label for="couleur">Couleur principale</label>
+          <select id="couleur">
+            <option value="">-- Choisir --</option>
+            <option value="Noir">Noir</option>
+            <option value="Blanc">Blanc</option>
+            <option value="Beige">Beige</option>
+            <option value="Marron">Marron</option>
+            <option value="Rose">Rose</option>
+            <option value="Rouge">Rouge</option>
+            <option value="Bleu">Bleu</option>
+            <option value="Vert">Vert</option>
+            <option value="Jaune">Jaune</option>
+            <option value="Orange">Orange</option>
+            <option value="Violet">Violet</option>
+            <option value="Gris">Gris</option>
+            <option value="Or">Or</option>
+            <option value="Argent">Argent</option>
+            <option value="Motif">Motif</option>
+          </select>
+        </div>
+        <div class="champ">
+          <label for="saison">Saison</label>
+          <select id="saison">
+            <option value="Toutes saisons">Toutes saisons</option>
+            <option value="Printemps">Printemps</option>
+            <option value="Été">Été</option>
+            <option value="Automne">Automne</option>
+            <option value="Hiver">Hiver</option>
+          </select>
+        </div>
+        <div class="champ">
+          <label for="photo">Photo</label>
+          <input type="file" id="photo" accept="image/*">
+          <img id="preview" src="" alt="preview" style="display:none; margin-top:8px; border-radius:8px; width:100%; height:160px; object-fit:cover;">
+        </div>
+        <button id="btn-ajouter">+ Ajouter</button>
+      </aside>
+
+      <section class="garde-robe">
+        <div class="card" id="meteo-card">
+          <div class="sky">
+            <div class="sun-container">
+              <div class="sun-glow"></div>
+              <div class="sun-core"></div>
+            </div>
+            <svg class="landscape" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M0 80 L15 72 L30 78 L50 65 L75 75 L100 62 V100 H0 Z" fill="#4d6d3d"></path>
+              <path d="M0 90 L25 84 L50 92 L80 86 L100 92 V100 H0 Z" fill="#6a994e"></path>
+            </svg>
+          </div>
+          <div class="content">
+            <div class="main-temp">
+              <div class="temp-text" id="meteo-temp">--°</div>
+            </div>
+            <div class="current-status">
+              <svg class="icon-weather" viewBox="0 0 20 20">
+                <path d="M9 2 h2 v2 h-2 z M9 16 h2 v2 h-2 z M2 9 h2 v2 h-2 z M16 9 h2 v2 h-2 z" fill="white"></path>
+                <path d="M7 7 h6 v6 h-6 z" fill="white"></path>
+                <path d="M4 4 h2 v2 h-2 z M14 4 h2 v2 h-2 z M4 14 h2 v2 h-2 z M14 14 h2 v2 h-2 z" fill="white" opacity="0.6"></path>
+              </svg>
+              <span id="meteo-desc">Chargement...</span>
+            </div>
+            <div id="meteo-ville" style="padding: 0 25px; font-size: 11px; opacity: 0.7; letter-spacing: 1px; color: white;"></div>
+            <div class="forecast" id="meteo-forecast">
+              <div class="day-col"><span class="day-label">---</span><span class="day-val">--°</span></div>
+              <div class="day-col active"><span class="day-label">---</span><span class="day-val">--°</span></div>
+              <div class="day-col"><span class="day-label">---</span><span class="day-val">--°</span></div>
+            </div>
+          </div>
+          <div class="scanlines"></div>
+        </div>
+
+        <h2>Ma garde-robe</h2>
+        <div class="grille" id="grille">
+          <p class="vide">Aucun vêtement pour l'instant :(</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Widget chat IA -->
+    <button id="chat-toggle">💬</button>
+    <div id="chat-popup">
+      <div id="chat-header">
+        <span>✨ Assistante Mode IA</span>
+        <button id="chat-close">✕</button>
+      </div>
+      <div id="chat-messages"></div>
+      <div id="chat-input-area">
+        <input id="chat-input" type="text" placeholder="Ex : tenue chic pour demain...">
+        <button id="chat-send">➤</button>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
